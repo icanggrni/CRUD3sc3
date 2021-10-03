@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <center>
+        <h:form>
+            <h2>Inventories</h2>
+            Name : <h:inputText value="#{dataINV.name}"></h:inputText> 
+            <br/>
+            Description : <h:inputText value="#{dataINV.description}"></h:inputText> <br/>
+            Stock : <h:inputText value="#{dataINV.stock}"></h:inputText> <br/>
+            
+            <br/>
+            <h:commandButton value="add" action="#{dataINV.add_dataINV()}"></h:commandButton>
+        </h:form>
+            <h:dataTable value="#{dataINV.get_all_dataINV}" var="inv">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    <h:outputText value="#{inv.id}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{inv.name}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <h:outputText value="#{inv.description}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Stock</f:facet>
+                    <h:outputText value="#{inv.stock}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Created at</f:facet>
+                    <h:outputText value="#{inv.created_at}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Edit</f:facet>
+                    <h:commandButton value="Edit" action="#{dataINV.edit_dataINV}">
+                        <f:param name="action" value="#{inv.id}"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </center>
+    </h:body>
+</html>
+
