@@ -5,6 +5,7 @@
  */
 package data;
 
+import com.sun.faces.context.SessionMap;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -96,7 +97,7 @@ public class dataINV {
             DB_connection obj_DB_connection=new DB_connection();
             connection=obj_DB_connection.get_connection();
             
-            PreparedStatement ps=connection.prepareStatement("insert into inventories value('"+name+"','"+description+"','"+stock+"')");
+            PreparedStatement ps=connection.prepareStatement("insert into inventories values(null,'"+name+"','"+description+"','"+stock+"','"+created_at+"')");
             ps.executeUpdate();
         }catch (Exception e){
             System.out.println(e);
@@ -113,16 +114,72 @@ public class dataINV {
             Statement st=connection.createStatement();
             
             ResultSet rs=st.executeQuery("select * from inventories where id="+field_id);
+            dataINV obj_dataINV=new dataINV();
+            
+            rs.next();
+            
             obj_dataINV.setId(rs.getString(rs.getString("id")));
             obj_dataINV.setName(rs.getString("name"));
+            obj_dataINV.setDescription(rs.getString(rs.getString("description")));
+            obj_dataINV.setStock(rs.getString("stock"));
+            obj_dataINV.setCreated_at(rs.getString("created_at"));
             
-            sessionMap.put("editdataINV",obj_dataINV);
+            sessionMap.put("editdataINV", obj_dataINV);
                    
         }catch (Exception e){
             System.out.println(e);
         }
         return "/edit.xhtml?faces-editrect=true";
     }
+    
+    public String update_dataINV(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        String field_id = params.get("update_id");
+        try{
+            DB_connection obj_DB_connection=new DB_connection();
+            Connection connection=obj_DB_connection.get_connection();
+            
+            PreparedStatement ps=connection.prepareStatement("update inventories set id=? where (null,'"+name+"','"+description+"','"+stock+"','"+created_at+"')");
+            ps.setString(1, id);
+            ps.setString(2, name);
+            ps.setString(3, description);
+            ps.setString(4, stock);
+            ps.setString(5, created_at);
+            System.out.println(ps);
+            ps.executeUpdate();
+            
+            
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return "/index.xhtml?faces-editrect=true";
+    }
+    
+    public String delete_dataINV(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        String field_id = params.get("action");
+        try{
+            DB_connection obj_DB_connection=new DB_connection();
+            Connection connection=obj_DB_connection.get_connection();
+            
+            PreparedStatement ps=connection.prepareStatement("delete from inventories where Id='"+id+"'");
+            ps.setString(1, id);
+            ps.setString(2, name);
+            ps.setString(3, description);
+            ps.setString(4, stock);
+            ps.setString(5, created_at);
+            System.out.println(ps);
+            ps.executeUpdate();
+                   
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return "/index.xhtml?faces-editrect=true";
+    
+    }
+    
     
     public dataINV() {
     }

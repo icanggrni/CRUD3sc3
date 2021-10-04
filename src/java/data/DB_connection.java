@@ -7,12 +7,15 @@ package data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 
 /**
  *
  * @author Annisa Anggraini
  */
 public class DB_connection {
+    private Connection conn;
+    private Statement st;
     public static void main (String[] args){
         DB_connection obj_DB_connection=new DB_connection();
         System.out.println(obj_DB_connection.get_connection());
@@ -28,4 +31,5 @@ public class DB_connection {
         }
         return connection;
     }
+    
 }

@@ -14,10 +14,11 @@
             <br/>
             Description : <h:inputText value="#{dataINV.description}"></h:inputText> <br/>
             Stock : <h:inputText value="#{dataINV.stock}"></h:inputText> <br/>
+            Created : <h:inputText value="#{dataINV.created_at}"></h:inputText>
             
             <br/>
             <h:commandButton value="add" action="#{dataINV.add_dataINV()}"></h:commandButton>
-        </h:form>
+       
             <h:dataTable value="#{dataINV.get_all_dataINV}" var="inv">
                 <h:column>
                     <f:facet name="header">Id</f:facet>
@@ -46,7 +47,15 @@
                         <f:param name="action" value="#{inv.id}"/>
                     </h:commandButton>
                 </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:commandButton value="Delete" action="#{dataINV.delete_dataINV}">
+                        <f:param name="action" value="#{inv.id}"/>
+                    </h:commandButton>
+                </h:column>
             </h:dataTable>
+            </h:form>
         </center>
     </h:body>
 </html>
